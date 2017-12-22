@@ -11,15 +11,11 @@ import MapKit
 
 
 class ViewController: UIViewController, MKMapViewDelegate {
-    
-    
-
-    
+   
     @IBOutlet weak var mapView: MKMapView!
     var neighborhoodCoords = NeighborhoodCoords()
     var locations = [WeatherAnnotation]()
-    let regionRadius: CLLocationDistance = 14000 //meters radius from center point
-    let mapWidth: CLLocationDistance = 14000
+    let mapWidth: CLLocationDistance = 16000
     let mapHeight: CLLocationDistance = 14000
 
     func centerMapOnLocation(location: CLLocation) {
@@ -27,37 +23,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         mapView.setRegion(mapView.regionThatFits(coordinateRegion), animated: true)
     }
     override func viewDidLoad() {
-        let width = self.view.frame.size.width
-        let height = self.view.frame.size.height
-       // regionRadius = Double(width) * 33.8
-        
         //roughly the center of SF
         let initialLocation = CLLocation(latitude: 37.751851026046666, longitude: -122.43558883666992)
         centerMapOnLocation(location: initialLocation)
-
-
-        print(width)
-        print(height)
-        print(height/width)
-        
-        //iphone se
-//        320.0
-//        568.0
-//        1.775
-        
-//        //iphone plus
-//        414.0
-//        736.0
-//        1.77777777777778
-        
-        
-        
-        //33.8164251207729 iphone plus
-        //19.0217391304348
-        
-        //43.75 iphone SE
-        //24.6478873239437
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -97,8 +65,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         if av == nil {
             av = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             let lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            lbl.backgroundColor = .black
-            lbl.textColor = .white
+            lbl.backgroundColor = .white
+            lbl.textColor = .black
             lbl.textAlignment = NSTextAlignment.center
             lbl.alpha = 0.7
             lbl.tag = 42
@@ -142,7 +110,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let arr = dictionary["weather"] as! [[String : AnyObject]]
         results["desc"] = arr.first!["main"]
         results["icon"] = arr.first!["icon"]
-        //print(results["desc"])
         
         
         return results
